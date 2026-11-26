@@ -9,6 +9,7 @@ Provides the customer-facing delivery request experience.
 - Customer home page
 - Delivery request route
 - Pickup and destination contact details
+- Requested delivery date with past-date validation
 - Package category, dimensions, weight, and special handling
 - Browser-local draft persistence and validation
 - Mobile-first responsive layouts with touch-friendly controls and accessible form labels

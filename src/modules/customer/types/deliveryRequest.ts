@@ -13,6 +13,7 @@ export interface DeliveryRequestDraft {
   destinationAddress: string
   recipientName: string
   recipientPhone: string
+  deliveryDate: string
   packageCategory: PackageCategory
   description: string
   lengthInches: string

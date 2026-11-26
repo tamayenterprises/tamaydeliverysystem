@@ -11,6 +11,7 @@ const initialDraft: DeliveryRequestDraft = {
   destinationAddress: '',
   recipientName: '',
   recipientPhone: '',
+  deliveryDate: '',
   packageCategory: 'box',
   description: '',
   lengthInches: '',
@@ -42,6 +43,13 @@ const categoryOptions: Array<{ value: PackageCategory; label: string }> = [
 
 const fieldClass =
   'mt-1.5 min-h-11 w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm text-[#12233d] outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-[#35558f] focus:ring-2 focus:ring-[#35558f]/15'
+
+function localDateKey(date = new Date()): string {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
 
 function FormField({
   label,
@@ -76,6 +84,7 @@ export function DeliveryRequest() {
   const [draft, setDraft] = useState<DeliveryRequestDraft>(loadDraft)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [saved, setSaved] = useState(false)
+  const [minimumDeliveryDate] = useState(localDateKey)
 
   function updateField<K extends keyof DeliveryRequestDraft>(
     field: K,
@@ -93,6 +102,10 @@ export function DeliveryRequest() {
     if (!draft.destinationAddress.trim()) nextErrors.destinationAddress = 'Enter the destination address.'
     if (!draft.recipientName.trim()) nextErrors.recipientName = 'Enter the recipient name.'
     if (!draft.recipientPhone.trim()) nextErrors.recipientPhone = 'Enter the recipient phone number.'
+    if (!draft.deliveryDate) nextErrors.deliveryDate = 'Choose a requested delivery date.'
+    else if (draft.deliveryDate < minimumDeliveryDate) {
+      nextErrors.deliveryDate = 'Choose today or a future date.'
+    }
     if (!draft.description.trim()) nextErrors.description = 'Describe the package.'
     if (!draft.weightPounds.trim() || !Number.isFinite(Number(draft.weightPounds)) || Number(draft.weightPounds) <= 0) {
       nextErrors.weightPounds = 'Enter a weight greater than zero.'
@@ -126,8 +139,8 @@ export function DeliveryRequest() {
           Tell us about your delivery
         </h1>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
-          Share pickup, destination, and package details. You can review your options
-          before confirming.
+          Choose when you need the delivery, then share pickup, destination, and package
+          details. You can review your options before confirming.
         </p>
       </div>
 
@@ -211,80 +224,29 @@ export function DeliveryRequest() {
               </FormField>
             </div>
           </section>
-        <div className="space-y-4">
-        <section>
-          <h2 className="font-[Georgia] text-xl">Pickup</h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            <label className="md:col-span-2">
-              Pickup address
-              <input
-                className={fieldClass}
-                value={draft.pickupAddress}
-                onChange={(event) => updateField('pickupAddress', event.target.value)}
-                placeholder="Street, city, state, postal code"
-              />
-              {errors.pickupAddress && <span className="mt-2 block text-sm text-rose-400">{errors.pickupAddress}</span>}
-            </label>
-            <label>
-              Contact name
-              <input
-                className={fieldClass}
-                value={draft.pickupContactName}
-                onChange={(event) => updateField('pickupContactName', event.target.value)}
-              />
-              {errors.pickupContactName && <span className="mt-2 block text-sm text-rose-400">{errors.pickupContactName}</span>}
-            </label>
-            <label>
-              Contact phone
-              <input
-                className={fieldClass}
-                type="tel"
-                value={draft.pickupContactPhone}
-                onChange={(event) => updateField('pickupContactPhone', event.target.value)}
-              />
-              {errors.pickupContactPhone && <span className="mt-2 block text-sm text-rose-400">{errors.pickupContactPhone}</span>}
-            </label>
-          </div>
-        </section>
-
-        <section className="border-t border-[#35558f]/15 pt-4">
-          <h2 className="font-[Georgia] text-xl">Destination</h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            <label className="md:col-span-2">
-              Destination address
-              <input
-                className={fieldClass}
-                value={draft.destinationAddress}
-                onChange={(event) => updateField('destinationAddress', event.target.value)}
-                placeholder="Street, city, state, postal code"
-              />
-              {errors.destinationAddress && <span className="mt-2 block text-sm text-rose-400">{errors.destinationAddress}</span>}
-            </label>
-            <label>
-              Recipient name
-              <input
-                className={fieldClass}
-                value={draft.recipientName}
-                onChange={(event) => updateField('recipientName', event.target.value)}
-              />
-              {errors.recipientName && <span className="mt-2 block text-sm text-rose-400">{errors.recipientName}</span>}
-            </label>
-            <label>
-              Recipient phone
-              <input
-                className={fieldClass}
-                type="tel"
-                value={draft.recipientPhone}
-                onChange={(event) => updateField('recipientPhone', event.target.value)}
-              />
-              {errors.recipientPhone && <span className="mt-2 block text-sm text-rose-400">{errors.recipientPhone}</span>}
-            </label>
-          </div>
-        </section>
-        </div>
+          <section className="border-t border-slate-200 pt-5 sm:pt-6" aria-labelledby="delivery-date-heading">
+            <SectionHeading id="delivery-date-heading" number="03" title="Delivery date" />
+            <div className="max-w-sm">
+              <FormField label="Requested delivery date" error={errors.deliveryDate}>
+                <input
+                  className={fieldClass}
+                  type="date"
+                  min={minimumDeliveryDate}
+                  value={draft.deliveryDate}
+                  onChange={(event) => updateField('deliveryDate', event.target.value)}
+                  aria-invalid={Boolean(errors.deliveryDate)}
+                  required
+                />
+              </FormField>
+              <p className="mt-2 text-xs leading-5 text-slate-500">
+                Choose the date you need us to pick up your package for delivery. Final timing
+                depends on availability.
+              </p>
+            </div>
+          </section>
 
           <section className="border-t border-slate-200 pt-5 sm:pt-6" aria-labelledby="package-heading">
-            <SectionHeading id="package-heading" number="03" title="Package" />
+            <SectionHeading id="package-heading" number="04" title="Package" />
             <div className="grid grid-cols-2 gap-x-3 gap-y-3 sm:gap-x-4">
               <FormField label="Package category">
                 <select
