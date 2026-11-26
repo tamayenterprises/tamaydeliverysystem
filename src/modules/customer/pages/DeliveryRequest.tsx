@@ -102,7 +102,7 @@ export function DeliveryRequest() {
         onSubmit={saveDraft}
         className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-5 text-[#0b1628] shadow-lg"
       >
-        <div className="grid gap-x-6 gap-y-4 lg:grid-cols-2">
+        <div className="space-y-4">
         <section>
           <h2 className="font-[Georgia] text-xl">Pickup</h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -138,7 +138,7 @@ export function DeliveryRequest() {
           </div>
         </section>
 
-        <section>
+        <section className="border-t border-[#35558f]/15 pt-4">
           <h2 className="font-[Georgia] text-xl">Destination</h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <label className="md:col-span-2">
