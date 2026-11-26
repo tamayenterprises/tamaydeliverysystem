@@ -84,23 +84,23 @@ export function DeliveryRequest() {
     { value: 'other', label: 'Other' },
   ]
 
-  const fieldClass = 'mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-sky-400'
+  const fieldClass = 'mt-2 w-full rounded-sm border border-[#35558f]/25 bg-white px-3 py-3 text-[#0b1628] outline-none transition placeholder:text-slate-400 focus:border-[#c9a227] focus:ring-2 focus:ring-[#c9a227]/20'
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-12">
       <div className="mb-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-400">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#c9a227]">
           Delivery request
         </p>
-        <h1 className="mt-2 text-3xl font-bold text-white">Package and address details</h1>
-        <p className="mt-3 text-slate-300">
+        <h1 className="mt-2 font-[Georgia] text-4xl text-white">Package and address details</h1>
+        <p className="mt-3 text-white/70">
           This draft is stored only in this browser until the secure checkout workflow is available.
         </p>
       </div>
 
       <form onSubmit={saveDraft} className="space-y-8">
-        <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-6">
-          <h2 className="text-xl font-semibold">Pickup</h2>
+        <section className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-6 text-[#0b1628] shadow-lg">
+          <h2 className="font-[Georgia] text-2xl">Pickup</h2>
           <div className="mt-5 grid gap-5 md:grid-cols-2">
             <label className="md:col-span-2">
               Pickup address
@@ -134,8 +134,8 @@ export function DeliveryRequest() {
           </div>
         </section>
 
-        <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-6">
-          <h2 className="text-xl font-semibold">Destination</h2>
+        <section className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-6 text-[#0b1628] shadow-lg">
+          <h2 className="font-[Georgia] text-2xl">Destination</h2>
           <div className="mt-5 grid gap-5 md:grid-cols-2">
             <label className="md:col-span-2">
               Destination address
@@ -169,8 +169,8 @@ export function DeliveryRequest() {
           </div>
         </section>
 
-        <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-6">
-          <h2 className="text-xl font-semibold">Package</h2>
+        <section className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-6 text-[#0b1628] shadow-lg">
+          <h2 className="font-[Georgia] text-2xl">Package</h2>
           <div className="mt-5 grid gap-5 md:grid-cols-2">
             <label>
               Package category
@@ -230,14 +230,14 @@ export function DeliveryRequest() {
         <div className="flex flex-wrap items-center gap-4">
           <button
             type="submit"
-            className="rounded-lg bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400"
+            className="rounded-sm bg-[#c9a227] px-5 py-3 font-bold text-[#0b1628] transition hover:bg-[#dfbd4f]"
           >
             Save delivery draft
           </button>
           <button
             type="button"
             onClick={clearDraft}
-            className="rounded-lg border border-slate-700 px-5 py-3 font-semibold text-slate-200 transition hover:border-slate-500"
+            className="rounded-sm border border-white/35 px-5 py-3 font-semibold text-white transition hover:border-[#c9a227]"
           >
             Clear
           </button>
