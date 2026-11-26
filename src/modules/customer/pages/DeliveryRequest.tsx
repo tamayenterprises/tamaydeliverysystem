@@ -84,24 +84,25 @@ export function DeliveryRequest() {
     { value: 'other', label: 'Other' },
   ]
 
-  const fieldClass = 'mt-2 w-full rounded-sm border border-[#35558f]/25 bg-white px-3 py-3 text-[#0b1628] outline-none transition placeholder:text-slate-400 focus:border-[#c9a227] focus:ring-2 focus:ring-[#c9a227]/20'
+  const fieldClass = 'mt-1.5 w-full rounded-sm border border-[#35558f]/25 bg-white px-3 py-2 text-sm text-[#0b1628] outline-none transition placeholder:text-slate-400 focus:border-[#c9a227] focus:ring-2 focus:ring-[#c9a227]/20'
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <div className="mb-8">
+    <main className="mx-auto max-w-6xl px-5 py-7 sm:px-6 sm:py-8">
+      <div className="mb-5">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#c9a227]">
           Delivery request
         </p>
-        <h1 className="mt-2 font-[Georgia] text-4xl text-white">Package and address details</h1>
-        <p className="mt-3 text-white/70">
+        <h1 className="mt-1 font-[Georgia] text-3xl text-white">Package and address details</h1>
+        <p className="mt-2 text-sm text-white/70">
           This draft is stored only in this browser until the secure checkout workflow is available.
         </p>
       </div>
 
-      <form onSubmit={saveDraft} className="space-y-8">
-        <section className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-6 text-[#0b1628] shadow-lg">
-          <h2 className="font-[Georgia] text-2xl">Pickup</h2>
-          <div className="mt-5 grid gap-5 md:grid-cols-2">
+      <form onSubmit={saveDraft} className="space-y-4">
+        <div className="grid gap-4 lg:grid-cols-2">
+        <section className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-4 text-[#0b1628] shadow-lg">
+          <h2 className="font-[Georgia] text-xl">Pickup</h2>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <label className="md:col-span-2">
               Pickup address
               <input
@@ -134,9 +135,9 @@ export function DeliveryRequest() {
           </div>
         </section>
 
-        <section className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-6 text-[#0b1628] shadow-lg">
-          <h2 className="font-[Georgia] text-2xl">Destination</h2>
-          <div className="mt-5 grid gap-5 md:grid-cols-2">
+        <section className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-4 text-[#0b1628] shadow-lg">
+          <h2 className="font-[Georgia] text-xl">Destination</h2>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <label className="md:col-span-2">
               Destination address
               <input
@@ -168,11 +169,12 @@ export function DeliveryRequest() {
             </label>
           </div>
         </section>
+        </div>
 
-        <section className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-6 text-[#0b1628] shadow-lg">
-          <h2 className="font-[Georgia] text-2xl">Package</h2>
-          <div className="mt-5 grid gap-5 md:grid-cols-2">
-            <label>
+        <section className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-4 text-[#0b1628] shadow-lg">
+          <h2 className="font-[Georgia] text-xl">Package</h2>
+          <div className="mt-3 grid gap-3 md:grid-cols-12">
+            <label className="md:col-span-3">
               Package category
               <select
                 className={fieldClass}
@@ -184,7 +186,7 @@ export function DeliveryRequest() {
                 ))}
               </select>
             </label>
-            <label>
+            <label className="md:col-span-9">
               Description
               <input
                 className={fieldClass}
@@ -200,7 +202,7 @@ export function DeliveryRequest() {
               ['heightInches', 'Height (inches)'],
               ['weightPounds', 'Weight (lb)'],
             ].map(([field, label]) => (
-              <label key={field}>
+              <label key={field} className="md:col-span-3">
                 {label}
                 <input
                   className={fieldClass}
@@ -215,10 +217,10 @@ export function DeliveryRequest() {
                 )}
               </label>
             ))}
-            <label className="md:col-span-2">
+            <label className="md:col-span-12">
               Special handling
               <textarea
-                className={`${fieldClass} min-h-24 resize-y`}
+                className={`${fieldClass} min-h-16 resize-y`}
                 value={draft.specialHandling}
                 onChange={(event) => updateField('specialHandling', event.target.value)}
                 placeholder="Loading assistance, fragile items, weather protection, etc."
