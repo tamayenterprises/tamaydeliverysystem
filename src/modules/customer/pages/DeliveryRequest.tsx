@@ -98,9 +98,12 @@ export function DeliveryRequest() {
         </p>
       </div>
 
-      <form onSubmit={saveDraft} className="space-y-4">
-        <div className="grid gap-4 lg:grid-cols-2">
-        <section className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-4 text-[#0b1628] shadow-lg">
+      <form
+        onSubmit={saveDraft}
+        className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-5 text-[#0b1628] shadow-lg"
+      >
+        <div className="grid gap-x-6 gap-y-4 lg:grid-cols-2">
+        <section>
           <h2 className="font-[Georgia] text-xl">Pickup</h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <label className="md:col-span-2">
@@ -135,7 +138,7 @@ export function DeliveryRequest() {
           </div>
         </section>
 
-        <section className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-4 text-[#0b1628] shadow-lg">
+        <section>
           <h2 className="font-[Georgia] text-xl">Destination</h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <label className="md:col-span-2">
@@ -171,7 +174,7 @@ export function DeliveryRequest() {
         </section>
         </div>
 
-        <section className="rounded-sm border border-[#35558f]/30 bg-[#f8f8f5] p-4 text-[#0b1628] shadow-lg">
+        <section className="border-t border-[#35558f]/15 pt-4 lg:col-span-2">
           <h2 className="font-[Georgia] text-xl">Package</h2>
           <div className="mt-3 grid gap-3 md:grid-cols-12">
             <label className="md:col-span-3">
@@ -229,7 +232,7 @@ export function DeliveryRequest() {
           </div>
         </section>
 
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="mt-4 flex flex-wrap items-center gap-4">
           <button
             type="submit"
             className="rounded-sm bg-[#c9a227] px-5 py-3 font-bold text-[#0b1628] transition hover:bg-[#dfbd4f]"
@@ -239,7 +242,7 @@ export function DeliveryRequest() {
           <button
             type="button"
             onClick={clearDraft}
-            className="rounded-sm border border-white/35 px-5 py-3 font-semibold text-white transition hover:border-[#c9a227]"
+            className="rounded-sm border border-[#35558f]/35 px-5 py-3 font-semibold text-[#35558f] transition hover:border-[#c9a227]"
           >
             Clear
           </button>
