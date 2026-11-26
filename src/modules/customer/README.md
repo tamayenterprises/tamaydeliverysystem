@@ -11,6 +11,8 @@ Provides the customer-facing delivery request experience.
 - Pickup and destination contact details
 - Package category, dimensions, weight, and special handling
 - Browser-local draft persistence and validation
+- Mobile-first responsive layouts with touch-friendly controls and accessible form labels
+- Tamay Enterprises brand styling across navigation, landing page, and request form
 
 ## Dependencies
 
