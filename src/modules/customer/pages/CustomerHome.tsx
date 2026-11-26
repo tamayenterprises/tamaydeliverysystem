@@ -50,12 +50,6 @@ export function CustomerHome() {
                 Start a delivery request
                 <span aria-hidden="true">→</span>
               </Link>
-              <Link
-                to="/schedule"
-                className="inline-flex min-h-12 items-center justify-center rounded-md border border-white/25 px-5 py-3 text-sm font-bold text-white transition hover:border-[#e2c76e] hover:text-[#e2c76e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e2c76e]"
-              >
-                View delivery times
-              </Link>
               <span className="text-center text-xs text-slate-400 sm:text-left sm:text-sm">
                 No account needed to get started
               </span>

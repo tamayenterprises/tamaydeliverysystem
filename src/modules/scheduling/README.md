@@ -2,7 +2,7 @@
 
 ## Scope
 
-Provides administrator schedule configuration, customer availability, recurring delivery windows, date closures, capacity reporting, and temporary reservations. It does not process payments or assign drivers and vehicles.
+Provides administrator schedule configuration, customer date and window selection within the delivery request form, recurring delivery windows, date closures, capacity reporting, and temporary reservations. It does not process payments or assign drivers and vehicles.
 
 ## Database
 

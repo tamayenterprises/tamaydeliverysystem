@@ -14,6 +14,7 @@ export interface DeliveryRequestDraft {
   recipientName: string
   recipientPhone: string
   deliveryDate: string
+  deliveryWindowId: string
   packageCategory: PackageCategory
   description: string
   lengthInches: string
