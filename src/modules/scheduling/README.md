@@ -2,7 +2,7 @@
 
 ## Scope
 
-Provides administrator schedule configuration, customer date and window selection within the delivery request form, recurring delivery windows, date closures, capacity reporting, and temporary reservations. It does not process payments or assign drivers and vehicles.
+Provides administrator schedule configuration, delivery preferences inside the customer request form, recurring delivery windows, date closures, capacity reporting, and temporary reservations. It does not process payments or assign drivers and vehicles.
 
 ## Database
 
@@ -39,6 +39,7 @@ The migration expects authorized Supabase users to have a trusted `app_metadata.
 - Delivery Management must associate confirmed reservations with delivery records and request release/cancellation on reschedule or cancellation.
 - Driver and Fleet modules can later contribute resource-aware capacity; no duplicate driver or truck data is created here.
 - Customer checkout is not yet available; this module currently creates temporary holds and clearly indicates that payment integration is pending.
+- Earliest Available searches the configured booking horizon. Morning, afternoon, and evening only match configured windows fully contained within their stated time ranges; Specific 2-Hour Window requires an exact two-hour configured window; Specific Date holds the earliest compatible window that day. Appointment Delivery is saved locally without a capacity hold; request submission and staff coordination are not connected yet.
 
 ## Validation
 

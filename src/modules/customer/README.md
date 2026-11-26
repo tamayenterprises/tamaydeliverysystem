@@ -9,9 +9,9 @@ Provides the customer-facing delivery request experience.
 - Customer home page
 - Delivery request route
 - Pickup and destination contact details
-- Requested pickup date and live delivery-window selection within the delivery request form
+- Seven delivery preferences in the request form, with date-specific availability and exact two-hour window choices
 - Package category, dimensions, weight, and special handling
-- Browser-local request draft persistence, plus a temporary server-side hold for the selected window
+- Browser-local request draft persistence, plus temporary server-side holds for automatic matches; appointment preferences are saved without a hold
 - Mobile-first responsive layouts with touch-friendly controls and accessible form labels
 - Tamay Enterprises brand styling across navigation, landing page, and request form
 
