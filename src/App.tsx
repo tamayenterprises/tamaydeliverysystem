@@ -2,6 +2,8 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { CustomerLayout } from './modules/customer/components/CustomerLayout'
 import { CustomerHome } from './modules/customer/pages/CustomerHome'
 import { DeliveryRequest } from './modules/customer/pages/DeliveryRequest'
+import { AdminScheduling } from './modules/scheduling/pages/AdminScheduling'
+import { CustomerSchedulePicker } from './modules/scheduling/pages/CustomerSchedulePicker'
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
         <Route path="/" element={<CustomerHome />} />
         <Route path="/request" element={<DeliveryRequest />} />
       </Route>
+      <Route path="/admin/scheduling" element={<AdminScheduling />} />
+      <Route path="/schedule" element={<CustomerSchedulePicker />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
