@@ -211,6 +211,77 @@ export function DeliveryRequest() {
               </FormField>
             </div>
           </section>
+        <div className="space-y-4">
+        <section>
+          <h2 className="font-[Georgia] text-xl">Pickup</h2>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <label className="md:col-span-2">
+              Pickup address
+              <input
+                className={fieldClass}
+                value={draft.pickupAddress}
+                onChange={(event) => updateField('pickupAddress', event.target.value)}
+                placeholder="Street, city, state, postal code"
+              />
+              {errors.pickupAddress && <span className="mt-2 block text-sm text-rose-400">{errors.pickupAddress}</span>}
+            </label>
+            <label>
+              Contact name
+              <input
+                className={fieldClass}
+                value={draft.pickupContactName}
+                onChange={(event) => updateField('pickupContactName', event.target.value)}
+              />
+              {errors.pickupContactName && <span className="mt-2 block text-sm text-rose-400">{errors.pickupContactName}</span>}
+            </label>
+            <label>
+              Contact phone
+              <input
+                className={fieldClass}
+                type="tel"
+                value={draft.pickupContactPhone}
+                onChange={(event) => updateField('pickupContactPhone', event.target.value)}
+              />
+              {errors.pickupContactPhone && <span className="mt-2 block text-sm text-rose-400">{errors.pickupContactPhone}</span>}
+            </label>
+          </div>
+        </section>
+
+        <section className="border-t border-[#35558f]/15 pt-4">
+          <h2 className="font-[Georgia] text-xl">Destination</h2>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <label className="md:col-span-2">
+              Destination address
+              <input
+                className={fieldClass}
+                value={draft.destinationAddress}
+                onChange={(event) => updateField('destinationAddress', event.target.value)}
+                placeholder="Street, city, state, postal code"
+              />
+              {errors.destinationAddress && <span className="mt-2 block text-sm text-rose-400">{errors.destinationAddress}</span>}
+            </label>
+            <label>
+              Recipient name
+              <input
+                className={fieldClass}
+                value={draft.recipientName}
+                onChange={(event) => updateField('recipientName', event.target.value)}
+              />
+              {errors.recipientName && <span className="mt-2 block text-sm text-rose-400">{errors.recipientName}</span>}
+            </label>
+            <label>
+              Recipient phone
+              <input
+                className={fieldClass}
+                type="tel"
+                value={draft.recipientPhone}
+                onChange={(event) => updateField('recipientPhone', event.target.value)}
+              />
+              {errors.recipientPhone && <span className="mt-2 block text-sm text-rose-400">{errors.recipientPhone}</span>}
+            </label>
+          </div>
+        </section>
+        </div>
 
           <section className="border-t border-slate-200 pt-5 sm:pt-6" aria-labelledby="package-heading">
             <SectionHeading id="package-heading" number="03" title="Package" />
