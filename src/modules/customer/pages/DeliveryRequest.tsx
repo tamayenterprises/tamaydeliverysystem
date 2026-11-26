@@ -1,0 +1,253 @@
+import { useState } from 'react'
+import type { FormEvent } from 'react'
+import type { DeliveryRequestDraft, PackageCategory } from '../types/deliveryRequest'
+
+const STORAGE_KEY = 'tamay-delivery-request-draft'
+
+const initialDraft: DeliveryRequestDraft = {
+  pickupAddress: '',
+  pickupContactName: '',
+  pickupContactPhone: '',
+  destinationAddress: '',
+  recipientName: '',
+  recipientPhone: '',
+  packageCategory: 'box',
+  description: '',
+  lengthInches: '',
+  widthInches: '',
+  heightInches: '',
+  weightPounds: '',
+  specialHandling: '',
+}
+
+function loadDraft(): DeliveryRequestDraft {
+  const saved = localStorage.getItem(STORAGE_KEY)
+  if (!saved) return initialDraft
+
+  try {
+    return { ...initialDraft, ...(JSON.parse(saved) as Partial<DeliveryRequestDraft>) }
+  } catch {
+    return initialDraft
+  }
+}
+
+export function DeliveryRequest() {
+  const [draft, setDraft] = useState<DeliveryRequestDraft>(loadDraft)
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [saved, setSaved] = useState(false)
+
+  function updateField<K extends keyof DeliveryRequestDraft>(
+    field: K,
+    value: DeliveryRequestDraft[K],
+  ) {
+    setDraft((current) => ({ ...current, [field]: value }))
+    setSaved(false)
+  }
+
+  function validate() {
+    const nextErrors: Record<string, string> = {}
+    if (!draft.pickupAddress.trim()) nextErrors.pickupAddress = 'Pickup address is required.'
+    if (!draft.pickupContactName.trim()) nextErrors.pickupContactName = 'Pickup contact name is required.'
+    if (!draft.pickupContactPhone.trim()) nextErrors.pickupContactPhone = 'Pickup contact phone is required.'
+    if (!draft.destinationAddress.trim()) nextErrors.destinationAddress = 'Destination address is required.'
+    if (!draft.recipientName.trim()) nextErrors.recipientName = 'Recipient name is required.'
+    if (!draft.recipientPhone.trim()) nextErrors.recipientPhone = 'Recipient phone is required.'
+    if (!draft.description.trim()) nextErrors.description = 'Package description is required.'
+    if (!draft.weightPounds.trim() || Number(draft.weightPounds) <= 0) {
+      nextErrors.weightPounds = 'Enter a weight greater than zero.'
+    }
+    setErrors(nextErrors)
+    return Object.keys(nextErrors).length === 0
+  }
+
+  function saveDraft(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (!validate()) return
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(draft))
+    setSaved(true)
+  }
+
+  function clearDraft() {
+    localStorage.removeItem(STORAGE_KEY)
+    setDraft(initialDraft)
+    setErrors({})
+    setSaved(false)
+  }
+
+  const categoryOptions: Array<{ value: PackageCategory; label: string }> = [
+    { value: 'box', label: 'Box or parcel' },
+    { value: 'envelope', label: 'Envelope or document' },
+    { value: 'furniture', label: 'Furniture' },
+    { value: 'appliance', label: 'Appliance' },
+    { value: 'construction', label: 'Construction material' },
+    { value: 'other', label: 'Other' },
+  ]
+
+  const fieldClass = 'mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-sky-400'
+
+  return (
+    <main className="mx-auto max-w-5xl px-6 py-12">
+      <div className="mb-8">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-400">
+          Delivery request
+        </p>
+        <h1 className="mt-2 text-3xl font-bold text-white">Package and address details</h1>
+        <p className="mt-3 text-slate-300">
+          This draft is stored only in this browser until the secure checkout workflow is available.
+        </p>
+      </div>
+
+      <form onSubmit={saveDraft} className="space-y-8">
+        <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-6">
+          <h2 className="text-xl font-semibold">Pickup</h2>
+          <div className="mt-5 grid gap-5 md:grid-cols-2">
+            <label className="md:col-span-2">
+              Pickup address
+              <input
+                className={fieldClass}
+                value={draft.pickupAddress}
+                onChange={(event) => updateField('pickupAddress', event.target.value)}
+                placeholder="Street, city, state, postal code"
+              />
+              {errors.pickupAddress && <span className="mt-2 block text-sm text-rose-400">{errors.pickupAddress}</span>}
+            </label>
+            <label>
+              Contact name
+              <input
+                className={fieldClass}
+                value={draft.pickupContactName}
+                onChange={(event) => updateField('pickupContactName', event.target.value)}
+              />
+              {errors.pickupContactName && <span className="mt-2 block text-sm text-rose-400">{errors.pickupContactName}</span>}
+            </label>
+            <label>
+              Contact phone
+              <input
+                className={fieldClass}
+                type="tel"
+                value={draft.pickupContactPhone}
+                onChange={(event) => updateField('pickupContactPhone', event.target.value)}
+              />
+              {errors.pickupContactPhone && <span className="mt-2 block text-sm text-rose-400">{errors.pickupContactPhone}</span>}
+            </label>
+          </div>
+        </section>
+
+        <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-6">
+          <h2 className="text-xl font-semibold">Destination</h2>
+          <div className="mt-5 grid gap-5 md:grid-cols-2">
+            <label className="md:col-span-2">
+              Destination address
+              <input
+                className={fieldClass}
+                value={draft.destinationAddress}
+                onChange={(event) => updateField('destinationAddress', event.target.value)}
+                placeholder="Street, city, state, postal code"
+              />
+              {errors.destinationAddress && <span className="mt-2 block text-sm text-rose-400">{errors.destinationAddress}</span>}
+            </label>
+            <label>
+              Recipient name
+              <input
+                className={fieldClass}
+                value={draft.recipientName}
+                onChange={(event) => updateField('recipientName', event.target.value)}
+              />
+              {errors.recipientName && <span className="mt-2 block text-sm text-rose-400">{errors.recipientName}</span>}
+            </label>
+            <label>
+              Recipient phone
+              <input
+                className={fieldClass}
+                type="tel"
+                value={draft.recipientPhone}
+                onChange={(event) => updateField('recipientPhone', event.target.value)}
+              />
+              {errors.recipientPhone && <span className="mt-2 block text-sm text-rose-400">{errors.recipientPhone}</span>}
+            </label>
+          </div>
+        </section>
+
+        <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-6">
+          <h2 className="text-xl font-semibold">Package</h2>
+          <div className="mt-5 grid gap-5 md:grid-cols-2">
+            <label>
+              Package category
+              <select
+                className={fieldClass}
+                value={draft.packageCategory}
+                onChange={(event) => updateField('packageCategory', event.target.value as PackageCategory)}
+              >
+                {categoryOptions.map((option) => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Description
+              <input
+                className={fieldClass}
+                value={draft.description}
+                onChange={(event) => updateField('description', event.target.value)}
+                placeholder="Example: one 50 lb boxed tool set"
+              />
+              {errors.description && <span className="mt-2 block text-sm text-rose-400">{errors.description}</span>}
+            </label>
+            {[
+              ['lengthInches', 'Length (inches)'],
+              ['widthInches', 'Width (inches)'],
+              ['heightInches', 'Height (inches)'],
+              ['weightPounds', 'Weight (lb)'],
+            ].map(([field, label]) => (
+              <label key={field}>
+                {label}
+                <input
+                  className={fieldClass}
+                  type="number"
+                  min="0"
+                  step="0.1"
+                  value={draft[field as keyof DeliveryRequestDraft]}
+                  onChange={(event) => updateField(field as keyof DeliveryRequestDraft, event.target.value)}
+                />
+                {field === 'weightPounds' && errors.weightPounds && (
+                  <span className="mt-2 block text-sm text-rose-400">{errors.weightPounds}</span>
+                )}
+              </label>
+            ))}
+            <label className="md:col-span-2">
+              Special handling
+              <textarea
+                className={`${fieldClass} min-h-24 resize-y`}
+                value={draft.specialHandling}
+                onChange={(event) => updateField('specialHandling', event.target.value)}
+                placeholder="Loading assistance, fragile items, weather protection, etc."
+              />
+            </label>
+          </div>
+        </section>
+
+        <div className="flex flex-wrap items-center gap-4">
+          <button
+            type="submit"
+            className="rounded-lg bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400"
+          >
+            Save delivery draft
+          </button>
+          <button
+            type="button"
+            onClick={clearDraft}
+            className="rounded-lg border border-slate-700 px-5 py-3 font-semibold text-slate-200 transition hover:border-slate-500"
+          >
+            Clear
+          </button>
+          {saved && (
+            <p role="status" className="text-sm font-medium text-emerald-400">
+              Delivery draft saved.
+            </p>
+          )}
+        </div>
+      </form>
+    </main>
+  )
+}
