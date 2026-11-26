@@ -8,7 +8,7 @@
 - Pricing: Trusted low/high quote calculations in cents.
 - Routing: Google address and road-distance integration.
 - Fleet: Trucks, availability, restrictions, and assignment history.
-- Scheduling: Delivery windows and atomic capacity reservations.
+- Scheduling: Configurable operating hours, recurring windows, closures, availability, and atomic reservations. See [Scheduling System](../src/modules/scheduling/README.md).
 - Payments: Stripe transactions, webhooks, refunds, and payment history.
 - Receipts: Verified-payment receipt records and PDF generation.
 - Notifications: Email and application notification event logging.
